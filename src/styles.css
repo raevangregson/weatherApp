@@ -1,0 +1,21 @@
+.navMargin{
+    margin-bottom: 0.25em!important;
+    margin-right: 1em!important;
+    margin-left: 1em!important;
+    margin-top: auto!important;
+}
+
+.searchMargin{
+    margin-bottom: 0!important;
+    margin-left: auto!important;
+    margin-right: 2em!important;
+    }
+.mainContent{
+    height: 100vh;
+    background-image: linear-gradient(rgb(173, 208, 255), blue);
+}
+
+.topMarginAuto{
+    margin-top: auto;
+}
+
