@@ -7,7 +7,7 @@ class Routes extends Component {
     render(){
         return (
             <div>
-                <Route path="/" component={Current}/>
+                <Route exact path="/" component={Current}/>
                 <Route path="/forecast" component={Forecast}/>
             </div>
         );

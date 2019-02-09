@@ -40,17 +40,17 @@ class WeatherCard extends Component {
       <CardContent>
         {
         this.props.now ?
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography className={'now'}>
           Now
         </Typography>
         :
         null
         }
-        <Typography variant="h5" component="h2">
+        <Typography className='now'>
           {this.props.time}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {this.props.temp}
+        <Typography className='temp'>
+          {this.props.temp}℉
         </Typography>
         <Typography component="p">
           {this.props.icon}

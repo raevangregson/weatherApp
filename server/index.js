@@ -20,7 +20,7 @@ or with possible sub folders containing their related files
 app.get('/api/current', (req, res) => {
   let body = "";
   let zip = req.query['zip']
-  let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&APPID=${key}`
+  let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&APPID=${key}`
   https.get(url, httpRes => {
       httpRes.setEncoding("utf8");
       httpRes.on("data", data => {
@@ -36,7 +36,7 @@ app.get('/api/current', (req, res) => {
 app.get('/api/forecast', (req, res) => {
   let body = "";
   let zip = req.query['zip']
-  let url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&APPID=${key}`
+  let url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial:&APPID=${key}`
   https.get(url, httpRes => {
       httpRes.setEncoding("utf8");
       httpRes.on("data", data => {
