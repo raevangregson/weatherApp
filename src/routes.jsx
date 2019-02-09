@@ -1,15 +1,17 @@
-import React from 'react';
-import { Router, Route } from 'react-router';
-import App from "./app.jsx";
-import Current from './components/current.jsx';
-import Forecast from './components/forecast.jsx';
+import React,{Component} from 'react';
+import {Route} from 'react-router';
+import Current from './components/current.jsx'
+import Forecast from './components/forecast.jsx'
 
-const createRoutes = () => (
-    <Router>
-      <Route exact path="/" component={App}/>
-      <Route exact path="/current" component={Current}/>
-      <Route exact path="/forecast" component={Forecast}/>
-    </Router>
-);
+class Routes extends Component {
+    render(){
+        return (
+            <div>
+                <Route path="/" component={Current}/>
+                <Route path="/forecast" component={Forecast}/>
+            </div>
+        );
+    }
+}
 
-export default createRoutes;
+export default Routes;

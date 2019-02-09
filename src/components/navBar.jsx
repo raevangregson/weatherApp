@@ -27,6 +27,13 @@ class NavBar extends Component {
 
     handleChange(event, value) {
         this.setState({ value });
+        if(value==1){
+            this.props.history.push('/forecast')
+        }
+        else{
+            this.props.history.push('/')
+        }
+
     };
 
     render() {

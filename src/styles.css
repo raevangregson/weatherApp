@@ -10,9 +10,29 @@
     margin-left: auto!important;
     margin-right: 2em!important;
     }
+
 .mainContent{
     height: 100vh;
     background-image: linear-gradient(rgb(173, 208, 255), blue);
+}
+
+.current{
+    margin-left: auto;
+    margin-right: 350px;
+}
+
+.currentDetails{
+    margin-top: 100px;
+    margin-left: auto;
+}
+
+.card{
+    height: 80vh;
+    width: 250px;
+}
+
+.flexDisplay{
+    display: flex;
 }
 
 .topMarginAuto{

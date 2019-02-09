@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const https = require("https");
 var cors = require('cors')
+const key = 'bdcd5edebb0e8258c08a3e4aa964e072';
 
 const app = express();
 app.use(cors())
@@ -17,12 +18,34 @@ or with possible sub folders containing their related files
 
 // gets current weather forecast for current location
 app.get('/api/current', (req, res) => {
-//TODO
+  let body = "";
+  let zip = req.query['zip']
+  let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&APPID=${key}`
+  https.get(url, httpRes => {
+      httpRes.setEncoding("utf8");
+      httpRes.on("data", data => {
+        body += data;
+      });
+      httpRes.on("end", () => {
+        res.send(body.toString('utf8'))
+      })
+    });
 });
 
 //gets 5 day forecast
 app.get('/api/forecast', (req, res) => {
-    //TODO
+  let body = "";
+  let zip = req.query['zip']
+  let url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&APPID=${key}`
+  https.get(url, httpRes => {
+      httpRes.setEncoding("utf8");
+      httpRes.on("data", data => {
+        body += data;
+      });
+      httpRes.on("end", () => {
+        res.send(body.toString('utf8'))
+      })
+    });
 });
 
 //lets you know server is up an running on port 3000
