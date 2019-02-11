@@ -38,12 +38,10 @@ class Forecast extends Component {
                     let month = forecastDate.getUTCMonth() + 1;
                     let date = forecastDate.getUTCDate();
                     dates.push({'month':month,'date':date})
-                    console.log(dates)
                     forecast[forecastDate.getDay()][forecastDate.getDay()].push(cast)
                 }   
                 )
                 dates = dates.filter((date, index, self) => self.findIndex(t => t.month === date.month && t.date === date.date) === index)
-                console.log(dates)
                 this.setState({
                     forecast,
                     dates

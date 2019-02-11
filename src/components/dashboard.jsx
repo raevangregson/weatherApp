@@ -14,7 +14,6 @@ class Dashboard extends Component {
 
   //this updates the zipcode that we passs to our router components below
   zipChange(zip){
-    console.log(zip)
       this.setState({
           search:zip
       })
