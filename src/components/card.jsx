@@ -56,14 +56,12 @@ class WeatherCard extends Component {
                 let hours = content[Object.keys(content)[0]]
                 hours.forEach(hour=>{
                     let d = new Date(hour.dt_txt)
-                    let month = d.getUTCMonth() + 1;
-                    let date = d.getUTCDate();
                     let time = d.toLocaleTimeString()
                     let icon = <img src={`http://openweathermap.org/img/w/${hour.weather[0].icon}.png`} />
                     hourForecast.push(
                         <div key={time}>
                         <Typography>
-                          {time} {month}/{date}
+                          {time}
                         </Typography>
                         <Typography>
                           {hour.main.temp}℉
@@ -93,7 +91,7 @@ class WeatherCard extends Component {
         </Typography>
         :
         <Typography className={'now'}>
-          {this.props.day}
+          {this.props.day} {this.props.month}/{this.props.date}
         </Typography>
         }
         {
