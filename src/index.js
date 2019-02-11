@@ -9,8 +9,6 @@ import { createHashHistory } from 'history'
 const history = createHashHistory();
 
 ReactDOM.render(
-    <Router history={history} routes={routes}>
-        <App />
-    </Router>,
+        <App />,
     document.getElementById('root')
   );

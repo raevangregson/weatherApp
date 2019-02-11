@@ -8,30 +8,43 @@ class Current extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            zipcode: null,
+            zipcode: this.props.search,
             currentWeather: []
         }
         this.fetchData = this.fetchData.bind(this)
     }
 
     componentWillMount() {
-        this.fetchData()
+        this.fetchData(this.state.zipcode)
     }
 
-    fetchData() {
+    //make sure we update our data when props change
+    componentWillReceiveProps(nextProps){
+        if(this.props.search!=nextProps.search){
+            this.fetchData(nextProps.search)
+        }
+    }
+
+    //get data for current weather send to store inside of an array
+    fetchData(zip) {
+        var d = new Date();
+        var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         let currentWeather = []
-        fetch(`http://localhost:3000/api/current?zip=48438`)
+        fetch(`http://localhost:3000/api/current?zip=${zip}`)
             .then(response => response.json()
             )
             .then(results => {
-                console.log(results)
+                currentWeather['time'] = d.toLocaleTimeString()
+                currentWeather['day'] = weekdays[d.getDay()]
+                currentWeather['month'] = d.getUTCMonth() + 1;
+                currentWeather['date'] = d.getUTCDate();
                 currentWeather['city'] = results['name']
                 currentWeather['temp'] = results['main']['temp']
-                currentWeather['img'] = results['weather'][0]['icon']
-                currentWeather['description'] = results['weather'][0]['description']
-                currentWeather['main'] = results['weather'][0]['main']
-                currentWeather['set'] = results['sys']['sunset']
-                currentWeather['rise'] = results['sys']['sunrise']
+                currentWeather['img'] = <img className='icon' src={`http://openweathermap.org/img/w/${results['weather'][0]['icon']}.png`} />
+                currentWeather['setTime'] = new Date(results['sys']['sunset']*1000).toLocaleTimeString()
+                currentWeather['riseTime'] = new Date(results['sys']['sunrise']*1000).toLocaleTimeString()
+                currentWeather['setIcon'] = <img className={'suns sunDown'} src={Sundown} />
+                currentWeather['riseIcon'] = <img className={'suns'} src={Sunrise} />
                 this.setState({
                     currentWeather
                 })
@@ -39,20 +52,7 @@ class Current extends Component {
     }
 
     render() {
-        var d = new Date();
-        var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-        var month = d.getUTCMonth() + 1;
-        var date = d.getUTCDate();
-        let day = weekdays[d.getDay()]
-        var time = d.toLocaleTimeString()
-        let { temp, city, description, img, main, set,rise } = this.state.currentWeather
-        let riseTime = new Date(rise*1000).toLocaleTimeString()
-        let setTime = new Date(set*1000).toLocaleTimeString()
-        console.log(riseTime)
-        console.log(setTime)
-        let icon = <img className='icon' src={`http://openweathermap.org/img/w/${img}.png`} />
-        let sundown = <img className={'suns sunDown'} src={Sundown} />
-        let sunrise = <img className={'suns'} src={Sunrise} />
+        let { temp, city, date,month,time,day, img,setTime,riseTime,setIcon,riseIcon} = this.state.currentWeather
         return (
             <div className="flexDisplay">
                 <div className='currentDetails'>
@@ -63,11 +63,11 @@ class Current extends Component {
                         {city}
                     </Typography>
                     <div className='flexDisplay'>
-                    <div className='flexDisplay centerAlign'>{sunrise}<Typography className='times'>{riseTime}</Typography></div>
-                    <div className='flexDisplay centerAlign'>{sundown}<Typography className='times'>{setTime}</Typography></div>
+                    <div className='flexDisplay centerAlign'>{riseIcon}<Typography className='times'>{riseTime}</Typography></div>
+                    <div className='flexDisplay centerAlign'>{setIcon}<Typography className='times'>{setTime}</Typography></div>
                     </div>
                 </div>
-                <Card icon={icon} now={true} time={time} temp={temp} customClass='current' />
+                <Card icon={img} now={true} time={time} temp={temp} customClass='current' />
             </div>
         );
     }

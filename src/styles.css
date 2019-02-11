@@ -19,7 +19,7 @@
 
 .current{
     margin-left: auto;
-    margin-right: 215px;
+    margin-right: 315px;
 }
 
 .currentDetails{
@@ -28,8 +28,7 @@
 }
 
 .icon{
-    height: 200px;
-    margin-left: -25%;
+    height: 100px;
 }
 
 .card{
@@ -62,6 +61,14 @@
     font-size: 20px!important;
 }
 
+.week{
+    margin-right: 1000px!important;
+    font-size: 50px!important;
+    color:rgb(234, 241, 255)!important;
+    text-align: center!important;
+    padding-top:1em!important;
+}
+
 .temp{
     font-size: 50px!important;
     color: rgb(78,108,252)!important;
@@ -70,6 +77,40 @@
 .times{
     margin-left: 20px!important;
     color: rgb(234, 241, 255)!important;
+}
+
+.search{
+    margin-right: 15px;
+    margin-top: auto;
+}
+
+.weekCard{
+    margin-top: 10px;
+    margin-right: 50px;
+    width: 150px;
+    max-height: min-content;
+    min-width: unset!important;
+}
+
+.secondDay{
+    margin-top: -115px;
+}
+
+.thirdDay{
+    margin-top: -170px;
+}
+
+.fourthDay{
+    margin-top: -115px;
+}
+
+.leftMarginAuto{
+margin-left: auto;
+}
+
+.lastCard{
+    margin-top:-55px;
+margin-right: 31px;
 }
 
 .flexDisplay{

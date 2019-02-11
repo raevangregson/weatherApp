@@ -7,8 +7,8 @@ class Routes extends Component {
     render(){
         return (
             <div>
-                <Route exact path="/" component={Current}/>
-                <Route path="/forecast" component={Forecast}/>
+                <Route exact path="/" render={()=><Current search={this.props.search}/>}/>
+                <Route path="/forecast" render={()=><Forecast search={this.props.search}/>}/>
             </div>
         );
     }

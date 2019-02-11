@@ -6,27 +6,26 @@ import '../styles.css'
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-
+        search:48438
     }
-    this.fetchData = this.fetchData.bind(this);
+    this.zipChange = this.zipChange.bind(this)
   }
 
-  componentWillMount() {
-    this.fetchData()
-  }
-
-  fetchData() {
-    //TODO
+  //this updates the zipcode that we passs to our router components below
+  zipChange(zip){
+    console.log(zip)
+      this.setState({
+          search:zip
+      })
   }
 
   render() {  
     return (
       <div>
-       <NavBar history={this.props.history}/>
+       <NavBar zipChange={this.zipChange} history={this.props.history}/>
        <div className='mainContent'>
-       <DashboardRouter/>
+       <DashboardRouter search={this.state.search} />
        </div>
        </div>
     );
