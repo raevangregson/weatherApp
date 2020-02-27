@@ -1,12 +1,12 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const https = require("https");
-var cors = require('cors')
+const cors = require('cors')
 const key = 'bdcd5edebb0e8258c08a3e4aa964e072';
 
 const app = express();
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 /*
 ROUTES
@@ -22,12 +22,12 @@ app.get('/api/current', (req, res) => {
   let zip = req.query['zip']
   let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&APPID=${key}`
   https.get(url, httpRes => {
-      httpRes.setEncoding("utf8");
+      // httpRes.setEncoding("utf8");
       httpRes.on("data", data => {
         body += data;
       });
       httpRes.on("end", () => {
-        res.send(body.toString('utf8'))
+          res.send(body)
       })
     });
 });
@@ -38,12 +38,12 @@ app.get('/api/forecast', (req, res) => {
   let zip = req.query['zip']
   let url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&APPID=${key}`
   https.get(url, httpRes => {
-      httpRes.setEncoding("utf8");
+      // httpRes.setEncoding("utf8");
       httpRes.on("data", data => {
         body += data;
       });
       httpRes.on("end", () => {
-        res.send(body.toString('utf8'))
+        res.send(body)
       })
     });
 });

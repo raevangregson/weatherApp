@@ -9,19 +9,20 @@ class Current extends Component {
         super(props);
         this.state = {
             zipcode: this.props.search,
-            currentWeather: []
+            currentWeather: [],
+            error:false,
         }
         this.fetchData = this.fetchData.bind(this)
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.fetchData(this.state.zipcode)
     }
 
     //make sure we update our data when props change
-    componentWillReceiveProps(nextProps){
-        if(this.props.search!=nextProps.search){
-            this.fetchData(nextProps.search)
+    componentDidUpdate(prevProps){
+        if(this.props.search!=prevProps.search){
+            this.fetchData(this.props.search)
         }
     }
 
@@ -31,13 +32,22 @@ class Current extends Component {
         var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         let currentWeather = []
         fetch(`http://localhost:3000/api/current?zip=${zip}`)
-            .then(response => response.json()
+            .then(response => {
+                console.log(response)
+                if(response.status===200){
+                    return response.json()
+                }
+                else{
+                    throw new Error('Invalid Zip.');
+                }
+            }
             )
             .then(results => {
+                console.log(results)
                 currentWeather['time'] = d.toLocaleTimeString()
                 currentWeather['day'] = weekdays[d.getDay()]
-                currentWeather['month'] = d.getUTCMonth() + 1;
-                currentWeather['date'] = d.getUTCDate();
+                currentWeather['month'] = d.getMonth() + 1;
+                currentWeather['date'] = d.getDate();
                 currentWeather['city'] = results['name']
                 currentWeather['temp'] = results['main']['temp']
                 currentWeather['img'] = <img className='icon' src={`http://openweathermap.org/img/w/${results['weather'][0]['icon']}.png`} />
@@ -48,12 +58,21 @@ class Current extends Component {
                 this.setState({
                     currentWeather
                 })
-            }).catch(error => console.error(error));
+            }).catch(error => {
+                this.setState({
+                    error:true
+                })
+                console.error(error)});
     }
 
     render() {
         let { temp, city, date,month,time,day, img,setTime,riseTime,setIcon,riseIcon} = this.state.currentWeather
         return (
+            this.state.error?
+            <Typography>
+                        Invalid Zipcode Try Again
+            </Typography>
+            :
             <div className="flexDisplay">
                 <div className='currentDetails'>
                     <Typography className='date'>

@@ -34,11 +34,11 @@ class WeatherCard extends Component {
         this.makeContent = this.makeContent.bind(this)
     }
 
-    componentWillMount(){
+    componentDidMount(){
         !this.props.now?this.makeContent(this.props.content):false
     }
 
-    componentWillReceiveProps(nextProps){
+    componentDidUpdate(nextProps){
         if(this.props.content!=nextProps.content){
             this.makeContent(nextProps.content)
         }
@@ -51,10 +51,8 @@ class WeatherCard extends Component {
 
     makeContent(content){
         let hourForecast = []
-        if(content!=undefined){
-            if(content[Object.keys(content)[0]].length>0){
-                let hours = content[Object.keys(content)[0]]
-                hours.forEach(hour=>{
+        if(content!=undefined && Object.keys(content)[0].length>0){
+                content.forEach(hour=>{
                     let d = new Date(hour.dt_txt)
                     let time = d.toLocaleTimeString()
                     let icon = <img src={`http://openweathermap.org/img/w/${hour.weather[0].icon}.png`} />
@@ -70,9 +68,7 @@ class WeatherCard extends Component {
                           {icon}
                         </Typography>
                         </div>
-                            )
-                  });     
-            }
+                            )});     
         }
         this.setState({
             hourForecast
